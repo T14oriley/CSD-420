@@ -1,0 +1,66 @@
+//CSD420 Tyler O'Riley 09/16/2023 Assignments 8
+//Java program to practice multi-threading
+
+
+
+import java.lang.Math;
+
+public class RustyThreeThreads{
+
+    public static void main(String[] args){
+
+        Runnable Sprint = () -> {                       //Thread run syntax to execute thread one
+            long time = System.currentTimeMillis();     //Returns time in miliseconds as first run starts
+            System.out.println("Thread 1");
+            for(int i = 0; i <= 10000; i++){            //For loop to generate random value
+                System.out.print((char)getRandomLetter());
+            }
+            long endTime = System.currentTimeMillis() - time;   
+            System.out.println("\nEnd Time: " + endTime);
+        };
+
+        Runnable Sprint2 = () -> {
+            long time = System.currentTimeMillis();
+            System.out.println("Thread 2");
+            for(int i = 0; i <= 10000; i++){
+                System.out.print(getRandomNumber());
+            }
+            long endTime = System.currentTimeMillis() - time;
+            System.out.println("\nEnd Time: " + endTime);
+        };
+
+        Runnable Sprint3 = () -> {
+            long time = System.currentTimeMillis();
+            System.out.println("Thread 3");
+            for(int i = 0; i <= 10000; i++){
+                System.out.print((char)getRandomSpecial());
+            }
+            long endTime = System.currentTimeMillis() - time;
+            System.out.println("\nEnd Time: " + endTime);
+        };
+
+        Thread thread1 = new Thread(Sprint);   //Assigns instance of class to object
+        Thread thread2 = new Thread(Sprint2);
+        Thread thread3 = new Thread(Sprint3);
+        thread1.start();    //Start executes each thread simultaneously 
+        thread2.start();
+        thread3.start();
+
+}
+
+
+    private static int getRandomLetter(){           //Private static classes to return the randomized components for each thread
+        return (int)(Math.random() * 26 + 97);
+    }
+    private static int getRandomNumber(){
+        return (int)(Math.random() * 10);
+    }
+    private static int getRandomSpecial(){
+        int[] chars = {33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 
+            44, 45, 46, 47, 58, 59, 60, 61, 62, 63, 64, 91, 92, 93,
+            94, 95, 96, 123, 124, 125, 126};
+
+        return chars[(int)(Math.random() * chars.length)];
+    }
+
+}
